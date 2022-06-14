@@ -1,0 +1,31 @@
+const skillsSubCategory3=[
+    {
+        id:1,
+        list:"Java"
+    },
+    {
+        id:2,
+        list:"Python"
+    },
+    {
+        id:3,
+        list:"C++"
+    },
+    {
+        id:4,
+        list:"C"
+    },
+    {
+        id:5,
+        list:"C#"
+    },
+    {
+        id:6,
+        list:"JavaScript"
+    },
+    {
+        id:7,
+        list:"Swift"
+    }
+]
+export default skillsSubCategory3;
