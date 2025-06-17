@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import contactImg from '../contact-img.jpg';
-import { FaFacebookF } from 'react-icons/fa';
-import { FaInstagram } from 'react-icons/fa';
-import { FaLinkedinIn } from 'react-icons/fa';
 import { gql } from 'graphql-request';
 import GraphClient from '../lib/GraphClient';
+import Loader from './Loader';
 const ContactCard1 = () => {
   const [introduction, setIntroduction] = useState(null);
   useEffect(() => {
@@ -31,6 +29,7 @@ const ContactCard1 = () => {
     };
     if (!introduction) getData();
   }, [introduction]);
+  if (!introduction) return <Loader />;
   return (
     <>
       <div
@@ -57,15 +56,20 @@ const ContactCard1 = () => {
               Email : {introduction?.emailId}
             </h6>
             <h4 className='contact-btn-head pt-3'>Touch With Me</h4>
-            {introduction?.socialLinks?.map((socialLink, index) => {
-              return (
-                <button className='iconBtn' key={index}>
-                  <a href={socialLink?.url} target={'_blank'}>
-                    <img src={socialLink?.icon?.url} alt={socialLink?.title} />
-                  </a>
-                </button>
-              );
-            })}
+            {introduction?.socialLinks
+              ?.slice(0, 3)
+              ?.map((socialLink, index) => {
+                return (
+                  <button className='iconBtn' key={index}>
+                    <a href={socialLink?.url} target={'_blank'}>
+                      <img
+                        src={socialLink?.icon?.url}
+                        alt={socialLink?.title}
+                      />
+                    </a>
+                  </button>
+                );
+              })}
           </div>
         </div>
       </div>

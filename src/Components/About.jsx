@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { gql } from 'graphql-request';
 import GraphClient from '../lib/GraphClient';
 import { RichText } from '@graphcms/rich-text-react-renderer';
+import Loader from './Loader';
 const About = () => {
   const [introduction, setIntroduction] = useState(null);
   useEffect(() => {
@@ -32,6 +33,7 @@ const About = () => {
     };
     if (!introduction) getData();
   }, [introduction]);
+  if (!introduction) return <Loader />;
   return (
     <>
       <div className='about-main-div'>
