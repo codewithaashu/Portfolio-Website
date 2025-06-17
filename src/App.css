@@ -751,6 +751,13 @@ body.active-modal {
   cursor: pointer;
   transition: 0.3s;
   padding: 20px;
+  width: min-content;
+}
+@media screen and (max-width: 480px) {
+  .contact-card-box{
+
+    width: 95% !important;
+  }
 }
 .cont-img{
   width: 100%;

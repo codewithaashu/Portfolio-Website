@@ -74,7 +74,7 @@ const Hero = () => {
                   ))}
                 </div>
                 <div className='col-6 col-md-6 col-lg-6'>
-                  <h4 className='heroBtn-head'>Coding Profile On</h4>
+                  <h4 className='heroBtn-head'>Coding Profile</h4>
                   {introduction.codingProfile?.map((codingProfile, index) => (
                     <button className='iconBtn' key={index}>
                       <a
@@ -97,7 +97,7 @@ const Hero = () => {
                 <img
                   className='hero-image-bg'
                   src={heroBg}
-                  alt='Hero Image Background'
+                  alt='Hero Background'
                   loading='lazy'
                 />
                 <img

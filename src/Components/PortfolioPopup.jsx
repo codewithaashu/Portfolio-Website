@@ -26,7 +26,7 @@ const PortfolioPopup = (props) => {
               <img className='closeBtn' src={close} alt='check' />
             </div>
             <div className='col-12 col-md-6 col-lg-6 pop-img-div'>
-              <img src={img} alt='Human Image' style={{ width: '100%' }} />
+              <img src={img} alt={popHeading} style={{ width: '100%' }} />
             </div>
             <div className='col-12 col-md-6 col-lg-6'>
               <div>
@@ -44,6 +44,7 @@ const PortfolioPopup = (props) => {
                   <div className='portPop-btn'>
                     <a
                       target='_blank'
+                      rel='noreferrer'
                       href={view}
                       style={{
                         color: 'inherit',
@@ -63,6 +64,7 @@ const PortfolioPopup = (props) => {
                     <a
                       target='_blank'
                       href={github}
+                      rel='noreferrer'
                       style={{
                         color: 'inherit',
                         cursor: 'pointer',

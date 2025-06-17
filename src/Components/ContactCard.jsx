@@ -2,10 +2,7 @@ import contactImg from '../contact-img.jpg';
 const ContactCard1 = ({ introduction }) => {
   return (
     <>
-      <div
-        className='col-12 col-md-4 col-lg-4 contact-card-box'
-        style={{ width: 'min-content' }}
-      >
+      <div className='col-12 col-md-4 col-lg-4 contact-card-box'>
         <div>
           <img className='cont-img' src={contactImg} alt='' />
           <div className='pt-3'>
