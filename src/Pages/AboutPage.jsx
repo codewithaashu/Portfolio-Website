@@ -1,17 +1,16 @@
-import React from 'react'
-import About from '../Components/About'
-import Footer from '../Components/Footer'
-import Header from '../Components/Header'
+import About from '../Components/About';
+import Footer from '../Components/Footer';
+import Header from '../Components/Header';
 
 const AboutPage = () => {
-  document.title = "About | Ashish Ranjan";
+  document.title = 'About | Ashish Ranjan';
   return (
     <>
-    <Header/>
-    <About/>
-    <Footer/>
+      <Header />
+      <About />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default AboutPage;

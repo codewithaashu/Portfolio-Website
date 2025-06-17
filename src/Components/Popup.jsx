@@ -1,4 +1,3 @@
-import React from 'react';
 import check from '../quality.png';
 import close from '../close.png';
 import { RichText } from '@graphcms/rich-text-react-renderer';

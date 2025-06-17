@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ServicesCard from './ServicesCard';
 import GraphClient from '../lib/GraphClient';
 import { gql } from 'graphql-request';
+import Loader from './Loader';
 const Services = () => {
   const [services, setServices] = useState(null);
   useEffect(() => {
@@ -24,6 +25,7 @@ const Services = () => {
     };
     if (!services) getData();
   }, [services]);
+  if (!services) return <Loader />;
   return (
     <>
       <div className='services-main-div'>

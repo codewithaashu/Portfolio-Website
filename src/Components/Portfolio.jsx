@@ -1,94 +1,160 @@
-import React from 'react';
-import PortfolioDB from '../DataBase/PortfolioDB';
-import PortfolioPopDB from '../DataBase/PortfolioPopDB';
+import { useEffect, useState } from 'react';
 import PortfolioCard from './PortfolioCard';
+import { gql } from 'graphql-request';
+import GraphClient from '../lib/GraphClient';
+import Loader from './Loader';
+
+const ITEMS_PER_PAGE = 8;
+
 const Portfolio = () => {
+  const [projects, setProjects] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const query = gql`
+      {
+        projects {
+          title
+          technlogies
+          role
+          liveUrl
+          githubUrl
+          images {
+            url
+          }
+          description {
+            raw
+          }
+          createdDate
+          category
+        }
+      }
+    `;
+    const fetchData = async () => {
+      const { projects } = await GraphClient(query);
+      setProjects(projects);
+    };
+    fetchData();
+  }, []);
+
+  const totalPages = Math.ceil(projects.length / ITEMS_PER_PAGE);
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentProjects = projects.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft' && currentPage > 1) {
+        setCurrentPage((prev) => prev - 1);
+      }
+      if (e.key === 'ArrowRight' && currentPage < totalPages) {
+        setCurrentPage((prev) => prev + 1);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentPage, totalPages]);
+
+  const getPaginationNumbers = () => {
+    const pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 4) {
+        pages.push(1, 2, 3, 4, 5, '...', totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(
+          1,
+          '...',
+          totalPages - 4,
+          totalPages - 3,
+          totalPages - 2,
+          totalPages - 1,
+          totalPages
+        );
+      } else {
+        pages.push(
+          1,
+          '...',
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          '...',
+          totalPages
+        );
+      }
+    }
+    return pages;
+  };
+  if (!projects) return <Loader />;
   return (
-    <>
-      <div className='portfolio-main-div '>
-        <div className='container ' style={{ paddingBottom: '2rem' }}>
-          <div className='row pt-5'>
-            <p className='services-p' style={{ marginTop: '0px' }}>
-              My Portfolio
-            </p>
-            <h1 className='portfolio-h1' style={{ paddingBottom: '30px' }}>
-              Recent Works
-            </h1>
-          </div>
-          <div
-            className='row portfolio-main-card-box mt-4'
-            style={{ paddingBottom: '2rem' }}
-          >
+    <div className='portfolio-main-div'>
+      <div className='container' style={{ paddingBottom: '2rem' }}>
+        <div className='row pt-5'>
+          <p className='services-p' style={{ marginTop: '0px' }}>
+            My Portfolio
+          </p>
+          <h1 className='portfolio-h1' style={{ paddingBottom: '30px' }}>
+            Recent Works
+          </h1>
+        </div>
+
+        <div
+          className='row portfolio-main-card-box mt-4'
+          style={{ paddingBottom: '2rem', transition: 'all 0.4s ease-in-out' }}
+        >
+          {currentProjects.map((project, index) => (
             <PortfolioCard
-              img={PortfolioDB[0].img}
-              subHeading={PortfolioDB[0].subHeading}
-              heading={PortfolioDB[0].heading}
-              popHeading={PortfolioPopDB[0].heading}
-              content={PortfolioPopDB[0].para}
-              created={PortfolioPopDB[0].list1}
-              tech={PortfolioPopDB[0].list2}
-              role={PortfolioPopDB[0].list3}
-              view={PortfolioPopDB[0].list4}
+              key={index}
+              img={project?.images?.[0]?.url}
+              subHeading={project?.role}
+              heading={project?.title}
+              popHeading={project?.title}
+              content={project?.description?.raw}
+              created={project?.createdDate}
+              tech={project?.technlogies}
+              role={project?.role}
+              view={project?.liveUrl}
+              github={project?.githubUrl}
             />
-            <PortfolioCard
-              img={PortfolioDB[1].img}
-              subHeading={PortfolioDB[1].subHeading}
-              heading={PortfolioDB[1].heading}
-              popHeading={PortfolioPopDB[1].heading}
-              content={PortfolioPopDB[1].para}
-              created={PortfolioPopDB[1].list1}
-              tech={PortfolioPopDB[1].list2}
-              role={PortfolioPopDB[1].list3}
-              view={PortfolioPopDB[1].list4}
-            />
-            <PortfolioCard
-              img={PortfolioDB[2].img}
-              subHeading={PortfolioDB[2].subHeading}
-              heading={PortfolioDB[2].heading}
-              popHeading={PortfolioPopDB[2].heading}
-              content={PortfolioPopDB[2].para}
-              created={PortfolioPopDB[2].list1}
-              tech={PortfolioPopDB[2].list2}
-              role={PortfolioPopDB[0].list3}
-              view={PortfolioPopDB[2].list4}
-            />
-            <PortfolioCard
-              img={PortfolioDB[3].img}
-              subHeading={PortfolioDB[3].subHeading}
-              heading={PortfolioDB[3].heading}
-              popHeading={PortfolioPopDB[3].heading}
-              content={PortfolioPopDB[3].para}
-              created={PortfolioPopDB[3].list1}
-              tech={PortfolioPopDB[3].list2}
-              role={PortfolioPopDB[0].list3}
-              view={PortfolioPopDB[3].list4}
-            />
-            <PortfolioCard
-              img={PortfolioDB[4].img}
-              subHeading={PortfolioDB[4].subHeading}
-              heading={PortfolioDB[4].heading}
-              popHeading={PortfolioPopDB[4].heading}
-              content={PortfolioPopDB[4].para}
-              created={PortfolioPopDB[4].list1}
-              tech={PortfolioPopDB[4].list2}
-              role={PortfolioPopDB[0].list3}
-              view={PortfolioPopDB[4].list4}
-            />
-            <PortfolioCard
-              img={PortfolioDB[5].img}
-              subHeading={PortfolioDB[5].subHeading}
-              heading={PortfolioDB[5].heading}
-              popHeading={PortfolioPopDB[5].heading}
-              content={PortfolioPopDB[5].para}
-              created={PortfolioPopDB[5].list1}
-              tech={PortfolioPopDB[5].list2}
-              role={PortfolioPopDB[0].list3}
-              view={PortfolioPopDB[5].list4}
-            />
-          </div>
+          ))}
+        </div>
+
+        <div className='pagination-container'>
+          {currentPage > 1 && (
+            <button
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+              className='pagination-arrow'
+            >
+              &laquo;
+            </button>
+          )}
+
+          {getPaginationNumbers().map((page, idx) => (
+            <button
+              key={idx}
+              className={`pagination-number ${
+                currentPage === page ? 'active' : ''
+              } ${page === '...' ? 'dots' : ''}`}
+              onClick={() => typeof page === 'number' && setCurrentPage(page)}
+              disabled={page === '...'}
+            >
+              {page}
+            </button>
+          ))}
+
+          {currentPage < totalPages && (
+            <button
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              className='pagination-arrow'
+            >
+              &raquo;
+            </button>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

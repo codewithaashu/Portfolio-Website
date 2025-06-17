@@ -3,8 +3,11 @@ import { useTypewriter } from 'react-simple-typewriter';
 import heroBg from '../heroBg.png';
 import { gql } from 'graphql-request';
 import GraphClient from '../lib/GraphClient';
+import Loader from './Loader';
+
 const Hero = () => {
   const [introduction, setIntroduction] = useState(null);
+
   useEffect(() => {
     const query = gql`
       {
@@ -41,6 +44,7 @@ const Hero = () => {
     words: ['MERN Stack Developer', 'Web Designer', 'Programmer'],
     loop: 0,
   });
+  if (!introduction) return <Loader />;
 
   return (
     <>
@@ -50,7 +54,7 @@ const Hero = () => {
             <div className='col-12 col-md-7 col-lg-7 subHero'>
               <div className='pt-5 hero-div1'>
                 <p className='hero-p'>Welcome to my world</p>
-                <h1 className='hero-h1'>Hi,I'm {introduction?.name}</h1>
+                <h1 className='hero-h1'>Hi, I'm {introduction.name}</h1>
                 <h3 className='hero-h3'>
                   and I'm a <span style={{ color: '#ff014f' }}>{text}</span>
                 </h3>
@@ -58,33 +62,33 @@ const Hero = () => {
               <div className='row mTop'>
                 <div className='col-6 col-md-6 col-lg-6'>
                   <h4 className='heroBtn-head'>Touch With Me</h4>
-                  {introduction?.socialLinks?.map((socialLink, index) => {
-                    return (
-                      <button className='iconBtn' key={index}>
-                        <a href={socialLink?.url} target={'_blank'}>
-                          <img
-                            src={socialLink?.icon?.url}
-                            alt={socialLink?.title}
-                          />
-                        </a>
-                      </button>
-                    );
-                  })}
+                  {introduction.socialLinks?.map((socialLink, index) => (
+                    <button className='iconBtn' key={index}>
+                      <a href={socialLink.url} target='_blank' rel='noreferrer'>
+                        <img
+                          src={socialLink.icon?.url}
+                          alt={socialLink.title}
+                        />
+                      </a>
+                    </button>
+                  ))}
                 </div>
                 <div className='col-6 col-md-6 col-lg-6'>
-                  <h4 className='heroBtn-head'>Coding Profile On</h4>
-                  {introduction?.codingProfile?.map((codingProfile, index) => {
-                    return (
-                      <button className='iconBtn' key={index}>
-                        <a href={codingProfile?.url} target={'_blank'}>
-                          <img
-                            src={codingProfile?.icon?.url}
-                            alt={codingProfile?.title}
-                          />
-                        </a>
-                      </button>
-                    );
-                  })}
+                  <h4 className='heroBtn-head'>Coding Profile</h4>
+                  {introduction.codingProfile?.map((codingProfile, index) => (
+                    <button className='iconBtn' key={index}>
+                      <a
+                        href={codingProfile.url}
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        <img
+                          src={codingProfile.icon?.url}
+                          alt={codingProfile.title}
+                        />
+                      </a>
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -93,14 +97,13 @@ const Hero = () => {
                 <img
                   className='hero-image-bg'
                   src={heroBg}
-                  alt='Hero Image Background'
-                  data-w-id='6b044c6e-7288-7b25-07f8-80f4cc345ab7'
+                  alt='Hero Background'
                   loading='lazy'
                 />
                 <img
                   className='hero-img'
-                  src={introduction?.heroPic?.url}
-                  alt={introduction?.name}
+                  src={introduction.heroPic?.url}
+                  alt={introduction.name}
                 />
               </div>
             </div>

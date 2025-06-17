@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import check from '../quality.png';
 import Arrow from '../right-arrow.png';
 import Popup from './Popup';

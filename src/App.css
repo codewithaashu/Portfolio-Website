@@ -555,6 +555,13 @@ body{
   background:#141414 ;
   transform: none;
 }
+.projectHeading{
+  height: 100%;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 .portfolio-card-box{
   padding: 10px;
   width: 380px;
@@ -679,31 +686,21 @@ body{
 body.active-modal {
   overflow-y: hidden;
 }
+.linkBtn{
+  display: flex;
+  gap: 15px;
+}
 .portPop-btn{
   border: none;
   outline: none;
   font-weight: 500;
-  font-size: 20px;
-  padding: 12px 18px;
-  border-radius: 6px;
-  transition: 0.3s all ease;
-  height: fit-content;
+  height: 36px;
   color: #ff014f;
-  background: linear-gradient(145deg, #e2e8ec, #ffff);
-  box-shadow: 4px 4px 18px rgba(37, 35, 35, 0.869), -4px -4px 18px rgb(37, 35, 35, 0.869);
-}
-.nextBtn{
-  width: 25px;
-  background: inherit;
-  background: linear-gradient(145deg, #e2e8ec, #ffff);
   cursor: pointer;
+ 
 }
-.portPop-btn:hover{
-  transform: translateX(10px);
-  transition: 0.3s;
-}
-.nextBtn:hover{
-  transform: translateX(10px);
+.portPop-btn img{
+  width: 36px;
 }
 @media (max-width:768px) {
 .beautiful-div{
@@ -754,6 +751,13 @@ body.active-modal {
   cursor: pointer;
   transition: 0.3s;
   padding: 20px;
+  width: min-content;
+}
+@media screen and (max-width: 480px) {
+  .contact-card-box{
+
+    width: 95% !important;
+  }
 }
 .cont-img{
   width: 100%;
@@ -838,20 +842,10 @@ body.active-modal {
 }
 
 /* Footer */
-.fa {
-  padding: 10px;
-  font-size: 30x;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 2px;
-  color: rgb(33, 37, 41);
-  background-color: rgb(248, 249, 250);
-}
 
-.fa:hover {
-    opacity: 0.7;
-}
+
 @media screen and (max-width:400px) {
+
   .p1{
     display: block;
     text-align: center;
@@ -873,4 +867,57 @@ body.active-modal {
 }
 .text-muted p{
   color: #878e99;
+}
+
+/* pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.pagination-number,
+.pagination-arrow {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 8px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  color: #ff014f;
+}
+
+.pagination-number:hover,
+.pagination-arrow:hover {
+  background-color: #f5f5f5;
+}
+
+.pagination-number.active {
+  background-color: #ff014f;
+  color: white;
+  border-color: #ff014f;
+}
+
+.pagination-number.dots {
+  cursor: default;
+  background: none;
+  border: none;
+}
+
+.pagination-arrow:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

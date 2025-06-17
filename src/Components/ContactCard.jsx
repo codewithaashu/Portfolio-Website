@@ -1,42 +1,8 @@
-import { useEffect, useState } from 'react';
 import contactImg from '../contact-img.jpg';
-import { FaFacebookF } from 'react-icons/fa';
-import { FaInstagram } from 'react-icons/fa';
-import { FaLinkedinIn } from 'react-icons/fa';
-import { gql } from 'graphql-request';
-import GraphClient from '../lib/GraphClient';
-const ContactCard1 = () => {
-  const [introduction, setIntroduction] = useState(null);
-  useEffect(() => {
-    const query = gql`
-      {
-        introductions {
-          name
-          designation
-          emailId
-          mobileNumber
-          socialLinks {
-            title
-            icon {
-              url
-            }
-            url
-          }
-        }
-      }
-    `;
-    const getData = async () => {
-      const { introductions } = await GraphClient(query);
-      setIntroduction(introductions[0]);
-    };
-    if (!introduction) getData();
-  }, [introduction]);
+const ContactCard1 = ({ introduction }) => {
   return (
     <>
-      <div
-        className='col-12 col-md-4 col-lg-4 contact-card-box'
-        style={{ width: 'min-content' }}
-      >
+      <div className='col-12 col-md-4 col-lg-4 contact-card-box'>
         <div>
           <img className='cont-img' src={contactImg} alt='' />
           <div className='pt-3'>
@@ -57,15 +23,20 @@ const ContactCard1 = () => {
               Email : {introduction?.emailId}
             </h6>
             <h4 className='contact-btn-head pt-3'>Touch With Me</h4>
-            {introduction?.socialLinks?.map((socialLink, index) => {
-              return (
-                <button className='iconBtn' key={index}>
-                  <a href={socialLink?.url} target={'_blank'}>
-                    <img src={socialLink?.icon?.url} alt={socialLink?.title} />
-                  </a>
-                </button>
-              );
-            })}
+            {introduction?.socialLinks
+              ?.slice(0, 3)
+              ?.map((socialLink, index) => {
+                return (
+                  <button className='iconBtn' key={index}>
+                    <a href={socialLink?.url} target={'_blank'}>
+                      <img
+                        src={socialLink?.icon?.url}
+                        alt={socialLink?.title}
+                      />
+                    </a>
+                  </button>
+                );
+              })}
           </div>
         </div>
       </div>
