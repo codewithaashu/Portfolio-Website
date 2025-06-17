@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTypewriter } from 'react-simple-typewriter';
-import { FaFacebookF } from 'react-icons/fa';
-import { FaInstagram } from 'react-icons/fa';
-import { FaLinkedinIn } from 'react-icons/fa';
-import { FaJava } from 'react-icons/fa';
-import { FaReact } from 'react-icons/fa';
-import { FaNodeJs } from 'react-icons/fa';
-import hero from '../heroImg.png';
 import heroBg from '../heroBg.png';
 import { gql } from 'graphql-request';
 import GraphClient from '../lib/GraphClient';
@@ -16,19 +9,23 @@ const Hero = () => {
     const query = gql`
       {
         introductions {
-          aboutMe {
-            raw
-          }
-          designation
-          emailId
           name
-          passportPhoto {
-            url
-          }
-          mobileNumber
           socialLinks {
             title
             url
+            icon {
+              url
+            }
+          }
+          heroPic {
+            url
+          }
+          codingProfile {
+            title
+            url
+            icon {
+              url
+            }
           }
         }
       }
@@ -39,12 +36,9 @@ const Hero = () => {
     };
     if (!introduction) getData();
   }, [introduction]);
+
   const { text } = useTypewriter({
-    words: introduction?.designation || [
-      'MERN Stack Developer',
-      'Web Designer',
-      'Programmer',
-    ],
+    words: ['MERN Stack Developer', 'Web Designer', 'Programmer'],
     loop: 0,
   });
 
@@ -64,87 +58,33 @@ const Hero = () => {
               <div className='row mTop'>
                 <div className='col-6 col-md-6 col-lg-6'>
                   <h4 className='heroBtn-head'>Touch With Me</h4>
-                  <button className='iconBtn'>
-                    <a
-                      href='https://www.linkedin.com/in/ashishranjan1626/'
-                      target={'_blank'}
-                    >
-                      <FaLinkedinIn
-                        className='icon'
-                        style={{
-                          fontSize: '50px',
-                          width: '20px',
-                          height: '20px',
-                          lineHeight: '50px',
-                        }}
-                      />
-                    </a>
-                  </button>
-                  <button className='iconBtn'>
-                    <a
-                      href='https://www.instagram.com/codewithaashu_/'
-                      target={'_blank'}
-                    >
-                      <FaInstagram
-                        className='icon'
-                        style={{
-                          fontSize: '50px',
-                          width: '20px',
-                          height: '20px',
-                          lineHeight: '50px',
-                        }}
-                      />
-                    </a>
-                  </button>
-                  <button className='iconBtn'>
-                    <a href='https://www.facebook.com/' target={'_blank'}>
-                      <FaFacebookF
-                        className='icon'
-                        style={{
-                          fontSize: '50px',
-                          width: '20px',
-                          height: '20px',
-                          lineHeight: '50px',
-                        }}
-                      />
-                    </a>
-                  </button>
+                  {introduction?.socialLinks?.map((socialLink, index) => {
+                    return (
+                      <button className='iconBtn' key={index}>
+                        <a href={socialLink?.url} target={'_blank'}>
+                          <img
+                            src={socialLink?.icon?.url}
+                            alt={socialLink?.title}
+                          />
+                        </a>
+                      </button>
+                    );
+                  })}
                 </div>
                 <div className='col-6 col-md-6 col-lg-6'>
-                  <h4 className='heroBtn-head'>Best Skill On</h4>
-                  <button className='iconBtn'>
-                    <FaJava
-                      className='icon'
-                      style={{
-                        fontSize: '50px',
-                        width: '20px',
-                        height: '20px',
-                        lineHeight: '50px',
-                      }}
-                    />
-                  </button>
-                  <button className='iconBtn'>
-                    <FaReact
-                      className='icon'
-                      style={{
-                        fontSize: '50px',
-                        width: '20px',
-                        height: '20px',
-                        lineHeight: '50px',
-                      }}
-                    />
-                  </button>
-                  <button className='iconBtn'>
-                    <FaNodeJs
-                      className='icon'
-                      style={{
-                        fontSize: '50px',
-                        width: '20px',
-                        height: '20px',
-                        lineHeight: '50px',
-                      }}
-                    />
-                  </button>
+                  <h4 className='heroBtn-head'>Coding Profile On</h4>
+                  {introduction?.codingProfile?.map((codingProfile, index) => {
+                    return (
+                      <button className='iconBtn' key={index}>
+                        <a href={codingProfile?.url} target={'_blank'}>
+                          <img
+                            src={codingProfile?.icon?.url}
+                            alt={codingProfile?.title}
+                          />
+                        </a>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -157,7 +97,11 @@ const Hero = () => {
                   data-w-id='6b044c6e-7288-7b25-07f8-80f4cc345ab7'
                   loading='lazy'
                 />
-                <img className='hero-img' src={hero} alt='Ashish Photo' />
+                <img
+                  className='hero-img'
+                  src={introduction?.heroPic?.url}
+                  alt={introduction?.name}
+                />
               </div>
             </div>
           </div>
