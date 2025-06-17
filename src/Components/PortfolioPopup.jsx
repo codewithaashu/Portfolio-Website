@@ -1,5 +1,4 @@
 import close from '../close.png';
-import next from '../next.png';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import moment from 'moment';
 const PortfolioPopup = (props) => {

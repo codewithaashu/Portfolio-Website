@@ -1,35 +1,5 @@
-import { useEffect, useState } from 'react';
 import contactImg from '../contact-img.jpg';
-import { gql } from 'graphql-request';
-import GraphClient from '../lib/GraphClient';
-import Loader from './Loader';
-const ContactCard1 = () => {
-  const [introduction, setIntroduction] = useState(null);
-  useEffect(() => {
-    const query = gql`
-      {
-        introductions {
-          name
-          designation
-          emailId
-          mobileNumber
-          socialLinks {
-            title
-            icon {
-              url
-            }
-            url
-          }
-        }
-      }
-    `;
-    const getData = async () => {
-      const { introductions } = await GraphClient(query);
-      setIntroduction(introductions[0]);
-    };
-    if (!introduction) getData();
-  }, [introduction]);
-  if (!introduction) return <Loader />;
+const ContactCard1 = ({ introduction }) => {
   return (
     <>
       <div

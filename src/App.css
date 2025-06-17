@@ -835,26 +835,10 @@ body.active-modal {
 }
 
 /* Footer */
-.footerIcon {
-  text-align: center;
-  text-decoration: none;
-  margin: 5px;
-  color: rgb(33, 37, 41);
 
-}
-.footerIcon img{
-  width: 30px;
-  height: 30px;
-}
 
-.footerIcon:hover {
-    opacity: 0.7;
-}
 @media screen and (max-width:400px) {
-  .footerIcon img{
-    width: 20px;
-    height: 20px;
-  }
+
   .p1{
     display: block;
     text-align: center;
