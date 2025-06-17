@@ -21,9 +21,9 @@ const Popup = (props) => {
             <h3 className='pt-4 ' style={{ textAlign: 'center' }}>
               {props.title}
             </h3>
-            <p className='popup-p2 p-3'>
+            <div className='popup-p2 p-3'>
               <RichText content={props.content} />
-            </p>
+            </div>
             <ul>
               {props.keyPoints.map((curElem, id) => {
                 return (
