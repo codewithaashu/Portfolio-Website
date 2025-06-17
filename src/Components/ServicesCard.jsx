@@ -8,9 +8,9 @@ const ServicesCard = (props) => {
           <img src={img} alt='Web Icon' style={{ width: '50px' }} />
         </div>
         <h3 className='service-card-h1'>{heading}</h3>
-        <p className='service-card-p px-2'>
+        <div className='service-card-p px-2'>
           <RichText content={contents} />
-        </p>
+        </div>
       </div>
     </>
   );

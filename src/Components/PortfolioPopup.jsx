@@ -32,9 +32,9 @@ const PortfolioPopup = (props) => {
               <div>
                 <p className='popup-p1'>{`Featured - ${subHeading}`}</p>
                 <h3 className='popup-h3 pb-3'>{popHeading}</h3>
-                <p className='popup-p2'>
+                <div className='popup-p2'>
                   <RichText content={content} />
-                </p>
+                </div>
                 <li className='popup-li'>{`Created : ${moment(created).format(
                   'DD MMM YYYY'
                 )}`}</li>
