@@ -425,6 +425,11 @@ body{
     margin-right: 0%;
   }
 }
+.wrapText{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* Popup */
 .skill-beautiful-div{
