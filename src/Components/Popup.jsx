@@ -1,4 +1,3 @@
-import check from '../quality.png';
 import close from '../close.png';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 const Popup = (props) => {
@@ -28,14 +27,7 @@ const Popup = (props) => {
               {props.keyPoints.map((curElem, id) => {
                 return (
                   <li className='skillsList' key={id}>
-                    <span>
-                      <img
-                        src={check}
-                        alt='check'
-                        style={{ width: '20px', color: 'white' }}
-                      />
-                      &nbsp; &nbsp;{curElem}
-                    </span>
+                    <span>{curElem}</span>
                   </li>
                 );
               })}

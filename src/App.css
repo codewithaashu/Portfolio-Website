@@ -121,7 +121,8 @@ body{
 
 .hero-img {
   width: 440px;
-  /* position: absolute; */
+  height: 72vh;
+  border-radius: 14px;
   z-index: 1;
 }
 
@@ -243,6 +244,7 @@ body{
   }
   .hero-img {
     width: 320px !important;
+    height: 420px !important;
   }
 
   .hero-image-bg {
@@ -422,6 +424,11 @@ body{
   .skillDiv{
     margin-right: 0%;
   }
+}
+.wrapText{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Popup */

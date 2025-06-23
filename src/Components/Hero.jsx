@@ -41,7 +41,17 @@ const Hero = () => {
   }, [introduction]);
 
   const { text } = useTypewriter({
-    words: ['MERN Stack Developer', 'Web Designer', 'Programmer'],
+    words: [
+      'MERN Stack Developer',
+      'Web Designer',
+      'Programmer',
+      'App Developer',
+      'Full Stack Developer',
+      'Java Developer',
+      'Frontend Developer',
+      'React Developer',
+      'Backend Developer',
+    ],
     loop: 0,
   });
   if (!introduction) return <Loader />;

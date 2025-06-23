@@ -4,7 +4,7 @@ import { gql } from 'graphql-request';
 import GraphClient from '../lib/GraphClient';
 import Loader from './Loader';
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 6;
 
 const Portfolio = () => {
   const [projects, setProjects] = useState([]);
@@ -13,7 +13,7 @@ const Portfolio = () => {
   useEffect(() => {
     const query = gql`
       {
-        projects {
+        projects(orderBy: createdDate_DESC) {
           title
           technlogies
           role
@@ -30,6 +30,7 @@ const Portfolio = () => {
         }
       }
     `;
+
     const fetchData = async () => {
       const { projects } = await GraphClient(query);
       setProjects(projects);
